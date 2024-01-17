@@ -1,0 +1,28 @@
+<div class="example-button-container">
+  <button routerLink="" mat-fab color="warn" aria-label="Example icon button with a home icon">
+    <mat-icon>home</mat-icon>
+  </button>
+</div>
+<div class="cart">
+  <mat-card>
+    <ng-container *ngFor="let item of booklist">
+      <img width="50%" [src]="item.cover_image" alt="Book Image" />
+      <mat-card-header>
+        <h2>
+          {{ item.title }}
+        </h2>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Author: {{ item.author }}</p>
+        <p>Publication Year: {{ item.publication_year }}</p>
+        <p>Genre: {{ item.price }}<strong>VNĐ</strong></p>
+        <p>Description: {{ item.description }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Product Code: {{ item.product_code }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button [routerLink]="item.id" color="primary">View Detail</button>
+      </mat-card-actions>
+    </ng-container>
+  </mat-card>
+</div>
