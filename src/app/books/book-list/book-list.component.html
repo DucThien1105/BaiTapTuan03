@@ -1,8 +1,19 @@
-<div class="example-button-container">
-  <button routerLink="" mat-fab color="warn" aria-label="Example icon button with a home icon">
+
+<mat-toolbar>
+  <button routerLink="" mat-fab color="warn">
     <mat-icon>home</mat-icon>
   </button>
-</div>
+  <mat-form-field appearance="fill">
+    <mat-label>Search...</mat-label>
+    <input type="" formControlName="search" matInput />
+  </mat-form-field>
+  <span class="example-spacer"></span>
+  <button routerLink="/cart" mat-fab color="warn" >
+    <mat-icon >shopping_cart</mat-icon>
+  </button>
+  <div class="count-product">{{totalItem}}</div>
+</mat-toolbar>
+
 <div class="cart">
   <mat-card>
     <ng-container *ngFor="let item of booklist">
@@ -22,7 +33,10 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button [routerLink]="item.id" color="primary">View Detail</button>
+        <button mat-raised-button color="accent" (click)=addToCart(item)>Add To Cart</button>
       </mat-card-actions>
     </ng-container>
   </mat-card>
 </div>
+
+

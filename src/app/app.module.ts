@@ -31,10 +31,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { UserlistingComponent } from './userlisting/userlisting.component';
 import { CommonModule } from '@angular/common';
-import { BookListComponent } from './books/book-list/book-list.component';
-import { BookDetailComponent } from './books/book-detail/book-detail.component';
-import { CartComponent } from './cart/cart/cart.component';
-import { CheckoutComponent } from './cart/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +39,6 @@ import { CheckoutComponent } from './cart/checkout/checkout.component';
     RegisterComponent,
     HomeComponent,
     UserlistingComponent,
-    CartComponent,
-    CheckoutComponent,
-    // BookListComponent,
-    // BookDetailComponent
   ],
   imports: [
     BrowserModule,
