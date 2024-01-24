@@ -24,7 +24,7 @@ export class BookListComponent implements OnInit {
       })
     });
 
-    this.cartService.getProducts().subscribe((res : any) => {
+    this.cartService.getProducts().subscribe(res => {
       this.totalItem = res.length;
     })
   }

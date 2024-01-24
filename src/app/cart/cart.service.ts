@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItemList : any = []
-  private productList = new BehaviorSubject<any>([]);
+  public cartItemList : any = []
+  public productList = new BehaviorSubject<any>([]);
 
   constructor() { }
   getProducts() {
-    return this.productList.asObservable;
+    return this.productList.asObservable();
   }
   setProduct (product : any) {
     this.cartItemList.push(...product);
     this.productList.next(product);
   }
   addToCart(product : any){
-    this.cartItemList.push(product);
+    const existingItem = this.cartItemList.find((item: any) => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity++;
+      existingItem.extort = existingItem.quantity * existingItem.total;
+    } else {
+      const newItem = { ...product, quantity: 1, extort: product.total };
+      this.cartItemList.push(newItem);
+    }
+    
+    // this.cartItemList.push(product);
     this.productList.next(this.cartItemList);
     this.getTotalPrice();
     console.log(this.cartItemList)

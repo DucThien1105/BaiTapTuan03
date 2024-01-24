@@ -6,6 +6,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
     MatCardModule,
     MatButtonModule,
     MatTableModule,
+    MatIconModule,
   ]
 })
 export class CartModule { }

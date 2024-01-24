@@ -1,25 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Items } from '../shared/models/cart-item';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -27,10 +8,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = [
+    'id',
+    'cover_image',
+    'product_code',
+    'total',
+    'quantity',
+    'extort',
+    'delete'
+  ];
 
-  constructor() {}
+  public products: any = [];
+  public grandTotal!: number;
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartService.getProducts().subscribe((res) => {
+      this.products = res;
+      this.grandTotal = this.cartService.getTotalPrice();
+    });
+  }
+  removeItem(item: any) {
+    this.cartService.removeCartItem(item);
+    console.log("removeItem");
+    
+  }
+  emptycart() {
+    this.cartService.removeAllCart();
+  }
 }

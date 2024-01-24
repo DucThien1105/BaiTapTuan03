@@ -1,8 +1,8 @@
 export interface Items {
-    no: number,
-    img: string,
-    productCode: string,
-    price: number,
+    id: number,
+    cover_image: string,
+    product_code: string,
+    total: number,
     quantity: number,
-    total: number
+    extort: number
   }
