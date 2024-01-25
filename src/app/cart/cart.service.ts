@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CurrencyPipe } from '@angular/common';
+import { isNgTemplate } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -17,35 +18,35 @@ export class CartService {
     this.cartItemList.push(...product);
     this.productList.next(product);
   }
-  addToCart(product : any){
+  addToCart(product: any): void {
+    // Tạo mảng mới là existingItem từ mảng cũ cartItemList với điều kiện là trùng id thì công cộng dồn 
     const existingItem = this.cartItemList.find((item: any) => item.id === product.id);
-
+  
     if (existingItem) {
+      // Cộng dồn
       existingItem.quantity++;
-      existingItem.extort = existingItem.quantity * existingItem.total;
+      // Tính tổng giá của 1 sản phẩm được thêm 
+      const price = parseFloat(product.price.replace('.', '').replace(',', '.'));
+      existingItem.extort = price * existingItem.quantity;
     } else {
       const newItem = { ...product, quantity: 1, extort: product.total };
       this.cartItemList.push(newItem);
     }
-    
-    // this.cartItemList.push(product);
+  
     this.productList.next(this.cartItemList);
     this.getTotalPrice();
-    console.log(this.cartItemList)
+    console.log(this.cartItemList);
   }
+  
   getTotalPrice() : number{
     let grandTotal = 0;
     this.cartItemList.map((a:any)=>{
-      grandTotal += a.total;
+      grandTotal += a.extort;
     })
     return grandTotal;
   }
-  removeCartItem(product: any){
-    this.cartItemList.map((a:any, index:any)=>{
-      if(product.id=== a.id){
-        this.cartItemList.splice(index,1);
-      }
-    })
+  removeCartItem(element: any) {
+    this.cartItemList = this.cartItemList.filter((item: any) => item.id !== element.id);
     this.productList.next(this.cartItemList);
   }
   removeAllCart(){

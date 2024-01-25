@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
     'total',
     'quantity',
     'extort',
-    'delete'
+    'delete',
   ];
 
   public products: any = [];
@@ -28,10 +28,9 @@ export class CartComponent implements OnInit {
       this.grandTotal = this.cartService.getTotalPrice();
     });
   }
-  removeItem(item: any) {
-    this.cartService.removeCartItem(item);
+  removeItem(element: any) {
+    this.cartService.removeCartItem(element);
     console.log("removeItem");
-    
   }
   emptycart() {
     this.cartService.removeAllCart();
